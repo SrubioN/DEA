@@ -1,15 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import * as mapboxgl from 'mapbox-gl';
-import { LocationStrategy } from '@angular/common';
 import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions'
 import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css'
 import 'mapbox-gl/dist/mapbox-gl.css' // Updating node module will keep css up to date.
-//import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css' // Updating node module will keep css up to date.
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-//import { Person } from './person';
-//import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
@@ -29,14 +23,19 @@ export class MapService {
   
   
   setNavigationControl(){
-    this.map.addControl(new MapboxDirections({accessToken: mapboxgl.accessToken}), 'top-left');
-    //this.map.addControl(new MapboxGeocoder({accessToken:mapboxgl.accessToken}));
+    var directions = new MapboxDirections({
+      accessToken: mapboxgl.accessToken,
+      unit: 'metric',
+      profile: 'mapbox/cycling'
+    });
+    this.map.addControl(directions,"top-left");
     this.map.addControl(new mapboxgl.FullscreenControl());
     this.map.addControl(new mapboxgl.NavigationControl({
       showCompass: true,
       showZoom: true,
       visualizePitch: true
     }));
+    this.map.addControl
 
   }
   
@@ -101,10 +100,8 @@ export class MapService {
       .addTo(this.map); // add the marker to the map
     }
   }
-  shortPath(locs){
-  //  for(var i = 0; i < )
+ 
   
-  }
 }
 
 
