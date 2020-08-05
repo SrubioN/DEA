@@ -35,8 +35,6 @@ export class MapService {
       showZoom: true,
       visualizePitch: true
     }));
-    this.map.addControl
-
   }
   
   public initializeMap() {
@@ -76,29 +74,34 @@ export class MapService {
   }
   
   
-  setLocations(){  
-    var location = new Location(); 
-    var locs = new Array<Location>(); 
-    location.setName("COLEGIO MARIA AUXILIADORA");
-    location.setLatitude(-33.03128055);
-    location.setLongitude(-71.63788329);
-    locs.push(location);
-    this.setMarks(locs);
-    location.setName("COLEGIO SAN VICENTE");
-    location.setLatitude(-33.03168244);
-    location.setLongitude(-71.63563761);
-    locs.push(location);
-    this.setMarks(locs);
+  setLocations(data){
+    //console.log(data.Nombre);
+    var cantPlaces = 200;
+
+    var locs = new Array<Location>();
+    
+    for(var i = 0;i< cantPlaces-1;i++){
+      var location = new Location();
+      console.log(data.Nombre[i],data.Latitud[i],data.Longitud[i]);
+      console.log("PARSEFLOAT"+parseFloat(data.Latitud[i]).toFixed(6));
+      console.log("PARSEFLOAT"+parseFloat(data.Longitud[i]));
+      //location.setName(data.Nombre[i]);
+      location.setLatitude(parseFloat(data.Latitud[i]));
+      location.setLongitude(parseFloat(data.Longitud[i]));
+      locs.push(location);
+      this.setMark(location.getLongitude(),location.getLatitude());
+      //console.log(data.Nombre[i]);
+    }
+    console.log(locs);
+
   }
   
   
-  setMarks(locs)
-  {
-    for(var i = 0;i< locs.length;i++){
+  setMark(lng,lat){
+      //console.log(lat,lng);
       var marker = new mapboxgl.Marker()
-      .setLngLat([locs[i].getLongitude(), locs[i].getLatitude()])
+      .setLngLat([lng,lat])
       .addTo(this.map); // add the marker to the map
-    }
   }
  
   
