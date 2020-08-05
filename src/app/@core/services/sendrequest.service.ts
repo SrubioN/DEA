@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class SendRequest {
+export class SendRequestService {
 
   constructor(private http: HttpClient) { }
 

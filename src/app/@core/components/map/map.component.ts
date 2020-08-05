@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { MapService } from '@core/services/map.service';
 import { ConstantPool } from '@angular/compiler';
 import { Observable } from 'rxjs';
+import { SendRequestService } from '@core/services/sendrequest.service';
 
 @Component({
   selector: 'app-map',
@@ -14,15 +15,17 @@ export class MapComponent implements OnInit {
 
   archivo : any
 
-  constructor(private map: MapService, private readexcelservice: ReadExcelService) { }
+  constructor(private map: MapService, private readexcelservice: ReadExcelService, public sendrequestservice : SendRequestService,) { }
 
   ngOnInit() {
-    this.map.buildMap();
+    this.map.initializeMap();
     this.map.setLocationButton();
+    this.map.setNavigationControl();
     this.readexcelservice.getJSON().subscribe(data => {
       this.map.setLocations(data);
     });
-    this.map.setNavigationControl();
+    console.log(this.sendrequestservice.send());
+    
     //console.log(this.readexcelservice.get());
     //console.log(this.readexcelservice.getjson())
 
