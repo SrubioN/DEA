@@ -1,3 +1,4 @@
+import { SendRequest } from './../../services/sendrequest.service';
 import { ReadExcelService } from './../../../read-excel.service';
 
 import { Component, OnInit } from '@angular/core';
@@ -14,7 +15,7 @@ export class MapComponent implements OnInit {
 
   archivo : any
 
-  constructor(private map: MapService, private readexcelservice: ReadExcelService) { }
+  constructor(private map: MapService, private readexcelservice: ReadExcelService, public sendrquest:SendRequest) { }
 
   ngOnInit() {
     this.map.buildMap();
@@ -23,6 +24,10 @@ export class MapComponent implements OnInit {
       this.map.setLocations(data);
     });
     this.map.setNavigationControl();
+
+    this.sendrquest.send().subscribe(data =>{ 
+      console.log(data)
+    });
     //console.log(this.readexcelservice.get());
     //console.log(this.readexcelservice.getjson())
 
