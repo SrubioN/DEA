@@ -7,7 +7,7 @@ import { MapComponent } from './@core/components/map/map.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms'
-//import { SendRequest } from '@core/services'
+import { SendRequestService } from '@core/services/sendrequest.service';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,7 @@ import { FormsModule } from '@angular/forms'
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-   //SendRequest,  
+    //SendRequestService,  
   ],
   providers: [],
   bootstrap: [AppComponent]

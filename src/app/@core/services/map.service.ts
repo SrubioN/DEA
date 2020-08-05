@@ -36,7 +36,14 @@ export class MapService {
       visualizePitch: true
     }));
   }
-  
+  buildMap() {
+    this.map = new mapboxgl.Map({
+      container: 'map',
+      style: this.style,
+      zoom: this.zoom,
+      center: [this.lng, this.lat]
+    }); 
+  }
   public initializeMap() {
     /// locate the user
     if (navigator.geolocation) {
@@ -52,16 +59,7 @@ export class MapService {
     this.buildMap()
 
   }
-  buildMap() {
-    this.map = new mapboxgl.Map({
-      container: 'map',
-      style: this.style,
-      zoom: this.zoom,
-      center: [this.lng, this.lat]
-    });
-    
-    
-    }
+  
   
   
     setLocationButton(){
@@ -77,20 +75,13 @@ export class MapService {
   setLocations(data){
     //console.log(data.Nombre);
     var cantPlaces = 200;
-
     var locs = new Array<Location>();
-    
     for(var i = 0;i< cantPlaces-1;i++){
       var location = new Location();
-      console.log(data.Nombre[i],data.Latitud[i],data.Longitud[i]);
-      console.log("PARSEFLOAT"+parseFloat(data.Latitud[i]).toFixed(6));
-      console.log("PARSEFLOAT"+parseFloat(data.Longitud[i]));
-      //location.setName(data.Nombre[i]);
       location.setLatitude(parseFloat(data.Latitud[i]));
       location.setLongitude(parseFloat(data.Longitud[i]));
       locs.push(location);
       this.setMark(location.getLongitude(),location.getLatitude());
-      //console.log(data.Nombre[i]);
     }
     console.log(locs);
 
